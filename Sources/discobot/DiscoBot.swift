@@ -9,7 +9,7 @@ public class DiscoBot {
 	private let discoStorage = PostStorage()
 
 	public func postForm(chatId: ChatId, title: String, description: String, buttons: [String], test: Bool) {
-		let markdownedTitle = "*" + title + "*\n"
+		let markdownedTitle = "*" + title + "* \n"
 		let text = markdownedTitle + description
 		let replyMarkupKeyboard = DiscoBot.inlineKeyboard(with: buttons)
 		let replyMarkup = DiscoBot.replyMarkup(with: replyMarkupKeyboard)
