@@ -8,7 +8,7 @@ public class DiscoBot {
 
 	private let discoStorage = PostStorage()
 
-	public func postForm(chatId: ChatId, title: String, description: String, buttons: [String]) {
+	public func postForm(chatId: ChatId, title: String, description: String, buttons: [String], test: Bool) {
 		let markdownedTitle = "*" + title + "*\n"
 		let text = markdownedTitle + description
 		let replyMarkupKeyboard = DiscoBot.inlineKeyboard(with: buttons)
@@ -20,11 +20,42 @@ public class DiscoBot {
 							 replyMarkup) { [weak self] message, error in
 			if let message = message {
 				DispatchQueue.main.async {
-					self?.discoStorage.add(replyMarkup: replyMarkupKeyboard, for: message.message_id)
+					self?.discoStorage.add(replyMarkup: replyMarkupKeyboard, buttons: buttons, for: message)
 					self?.discoStorage.synchronize()
+				}
+
+				if (!test) {
+					let postedText = "*Запостили опрос:*\n" +
+						"Title: \(title)\n" +
+						"id: \(message.message_id)"
+					bot.sendMessageAsync(chat_id: Config.vados,
+										 text: postedText,
+										 parse_mode: "markdown")
 				}
 			}
 		}
+	}
+
+	public func postResult(message: Message, query: Int) {
+		let text = self.discoStorage.results(for: query)
+
+		let chatId = Config.approvedUserIds.contains(message.chat.id)
+			? message.chat.id
+			: Config.vados
+		bot.sendMessageAsync(chat_id: chatId,
+							 text: text,
+							 parse_mode: "markdown")
+	}
+
+	public func postResults(message: Message) {
+		let text = self.discoStorage.allResults()
+
+		let chatId = Config.approvedUserIds.contains(message.chat.id)
+			? message.chat.id
+			: Config.vados
+		bot.sendMessageAsync(chat_id: chatId,
+							 text: text,
+							 parse_mode: "markdown")
 	}
 
 	public func processChoice(for query: CallbackQuery) {
@@ -34,8 +65,11 @@ public class DiscoBot {
 
 				let user = query.from
 				let markup = DiscoBot.replyMarkup(with: markupKeyboard)
-				let choice = query.data ?? "-1"
-				self.discoStorage.register(user: user, for: message.message_id, choice: choice)
+				let choiceString = query.data ?? "-1"
+				let choice = Int(choiceString) ?? -1
+
+				self.discoStorage.register(user: user, for: message.message_id, order: choice)
+				self.discoStorage.synchronize()
 
 				var text = message.text ?? ""
 				let voices = self.discoStorage.voices(for: message.message_id)
@@ -46,6 +80,10 @@ public class DiscoBot {
 										 text: text, markup)
 			}
 		}
+	}
+
+	public func dropDatabase() {
+		self.discoStorage.dropAllItems()
 	}
 
 	// Echo fallback

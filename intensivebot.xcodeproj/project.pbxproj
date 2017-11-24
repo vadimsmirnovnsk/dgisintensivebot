@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		300139211FC8BC63001A3548 /* StorageMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300139201FC8BC63001A3548 /* StorageMessage.swift */; };
+		300139231FC8C0C7001A3548 /* StorageUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300139221FC8C0C7001A3548 /* StorageUser.swift */; };
 		309282D01FC811470081AA4B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309282CE1FC811430081AA4B /* Config.swift */; };
 		309282D21FC892F40081AA4B /* String+HaveVoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309282D11FC892F40081AA4B /* String+HaveVoices.swift */; };
 		OBJ_180 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
@@ -222,6 +224,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		300139201FC8BC63001A3548 /* StorageMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMessage.swift; sourceTree = "<group>"; };
+		300139221FC8C0C7001A3548 /* StorageUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUser.swift; sourceTree = "<group>"; };
 		309282CE1FC811430081AA4B /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = config/Config.swift; sourceTree = "<group>"; };
 		309282D11FC892F40081AA4B /* String+HaveVoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HaveVoices.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -606,6 +610,8 @@
 			children = (
 				OBJ_9 /* DiscoBot.swift */,
 				OBJ_12 /* PostStorage.swift */,
+				300139201FC8BC63001A3548 /* StorageMessage.swift */,
+				300139221FC8C0C7001A3548 /* StorageUser.swift */,
 				OBJ_14 /* main.swift */,
 				309282D11FC892F40081AA4B /* String+HaveVoices.swift */,
 			);
@@ -890,7 +896,9 @@
 				OBJ_204 /* DiscoBot.swift in Sources */,
 				309282D01FC811470081AA4B /* Config.swift in Sources */,
 				OBJ_207 /* PostStorage.swift in Sources */,
+				300139211FC8BC63001A3548 /* StorageMessage.swift in Sources */,
 				309282D21FC892F40081AA4B /* String+HaveVoices.swift in Sources */,
+				300139231FC8C0C7001A3548 /* StorageUser.swift in Sources */,
 				OBJ_209 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

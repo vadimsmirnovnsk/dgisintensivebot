@@ -6,12 +6,14 @@ let bot = TelegramBot(token: Config.botToken)
 let router = Router(bot: bot)
 let discoBot = DiscoBot()
 
-router["post2", .slashRequired] = { context in
+router["post", .slashRequired] = { context in
 	if let message = context.message {
 		let p = context.args.scanWords()
 		print("Will process: \(p)")
 
 		guard let user = message.from, discoBot.isApprovedForChat(userId: user.id) else { return true }
+		let testCommand = p.first ?? ""
+		let isTest = testCommand == "test"
 
 		if let messageText = message.text {
 			let textLines = messageText.components(separatedBy: "\n")
@@ -24,7 +26,11 @@ router["post2", .slashRequired] = { context in
 			print("Description: " + description)
 			print("Buttons: \(buttons)")
 
-			discoBot.postForm(chatId: message.chat.id, title: title, description: description, buttons: buttons)
+			discoBot.postForm(chatId: message.chat.id,
+							  title: title,
+							  description: description,
+							  buttons: buttons,
+							  test: isTest)
 		}
 	}
 
@@ -51,7 +57,26 @@ router[["help", "start"], .slashRequired] = { context in
 router["results", .slashRequired] = { context in
 	if let message = context.message {
 		guard let user = message.from, discoBot.isApprovedForChat(userId: user.id) else { return true }
-		print("See results")
+
+		if let messageId = context.args.scanInt64() {
+			discoBot.postResult(message: message, query: Int(messageId))
+		}
+		else {
+			discoBot.postResults(message: message)
+		}
+	}
+
+	return true
+}
+
+router["drop", .slashRequired] = { context in
+	if let message = context.message {
+		guard let user = message.from, discoBot.isApprovedForChat(userId: user.id) else { return true }
+
+		discoBot.dropDatabase()
+		bot.sendMessageAsync(chat_id: message.chat.id,
+							 text: "База данных дропнута",
+							 parse_mode: "markdown")
 	}
 
 	return true
@@ -62,6 +87,10 @@ router.add(.callback_query(data: nil)) { context -> Bool in
 		discoBot.processChoice(for: query)
 	}
 
+	return true
+}
+
+router.add(.reply_to_message) { context in
 	return true
 }
 
