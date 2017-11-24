@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "intensivebot::discobot"
                BuildableName = "discobot"
-               BlueprintName = "discobot"
+               BlueprintName = "intensivebot"
                ReferencedContainer = "container:intensivebot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -91,7 +91,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "intensivebot::discobot"
             BuildableName = "discobot"
-            BlueprintName = "discobot"
+            BlueprintName = "intensivebot"
             ReferencedContainer = "container:intensivebot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

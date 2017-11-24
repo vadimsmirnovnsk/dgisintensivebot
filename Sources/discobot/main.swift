@@ -6,17 +6,26 @@ let bot = TelegramBot(token: Config.botToken)
 let router = Router(bot: bot)
 let discoBot = DiscoBot()
 
-router["post", .slashRequired] = { context in
+router["post2", .slashRequired] = { context in
 	if let message = context.message {
+		let p = context.args.scanWords()
+		print("Will process: \(p)")
+
 		guard let user = message.from, discoBot.isApprovedForChat(userId: user.id) else { return true }
 
-		let argItemCount = context.args.scanInt64()
-		let argument = context.args.scanWord() ?? ""
-		let testChannel = argument != "production"
-		let testItemsCount: Int64 = testChannel ? 1 : 0
-		let itemsCount64 = argItemCount ?? testItemsCount
+		if let messageText = message.text {
+			let textLines = messageText.components(separatedBy: "\n")
+			guard textLines.count > 3 else { return true }
+			let title = textLines[1]
+			let description = textLines[2]
 
-		discoBot.postNewDisco(chatId: message.chat.id, itemsCount: Int(itemsCount64),  testChannel: testChannel)
+			let buttons = Array<String>(textLines[3..<textLines.count])
+			print("Title: " + title)
+			print("Description: " + description)
+			print("Buttons: \(buttons)")
+
+			discoBot.postForm(chatId: message.chat.id, title: title, description: description, buttons: buttons)
+		}
 	}
 
 	return true
@@ -29,8 +38,8 @@ router[["help", "start"], .slashRequired] = { context in
 		let firstName = message.from?.first_name ?? "Неизвестный"
 		let info = "Привет, " + firstName + "\n Используй команды:\n" +
 		"*/clear* — чтобы дропнуть все записи из кеша\n" +
-		"*/post <opt int: itemsCount> <opt: `production`>* — чтобы отправить itemsCount новых постов. " +
-		"Если указано слово `production`, то в канальчик."
+		"*/post* — отправить текст с кнопками в канальчик\n" +
+		"*/results* — посмотреть результаты"
 		bot.sendMessageAsync(chat_id: message.chat.id,
 		                     text: info,
 		                     parse_mode: "markdown")
@@ -39,18 +48,30 @@ router[["help", "start"], .slashRequired] = { context in
 	return true
 }
 
-router["clear", .slashRequired] = { context in
+router["results", .slashRequired] = { context in
 	if let message = context.message {
 		guard let user = message.from, discoBot.isApprovedForChat(userId: user.id) else { return true }
-		
-		discoBot.clearCache(chatId: message.chat.id)
+		print("See results")
 	}
 
 	return true
 }
 
-while let update = bot.nextUpdateSync() {
-	try router.process(update: update)
+router.add(.callback_query(data: nil)) { context -> Bool in
+	if let query = context.update.callback_query {
+		discoBot.processChoice(for: query)
+	}
+
+	return true
+}
+
+while true {
+	while let update = bot.nextUpdateSync() {
+		try router.process(update: update)
+	}
+
+	print("Server stopped due to error: \(String(describing: bot.lastError))")
+	sleep(5)
 }
 
 fatalError("Server stopped due to error: \(String(describing: bot.lastError))")

@@ -3,46 +3,49 @@ import TelegramBot
 
 public class DiscoBot {
 
-	private static let kMaxCaptionLength = 200
+	public static let replyButtonData = "replyButtonData"
+	private static let replyMarkup = "reply_markup"
 
-	private let discoStorage = PostedDiscoStorage(test: false)
+	private let discoStorage = PostStorage()
 
-	public func postNewDisco(chatId: ChatId, itemsCount: Int, testChannel: Bool) {
-		self.getDisco() { [weak self] discoResponse in
-			guard let this = self else { return }
+	public func postForm(chatId: ChatId, title: String, description: String, buttons: [String]) {
+		let markdownedTitle = "*" + title + "*\n"
+		let text = markdownedTitle + description
+		let replyMarkupKeyboard = DiscoBot.inlineKeyboard(with: buttons)
+		let replyMarkup = DiscoBot.replyMarkup(with: replyMarkupKeyboard)
 
-			if let discoResponse = discoResponse {
-				let discos = this.discosForPost(from: discoResponse.result.items, itemsCount: itemsCount)
-				guard discos.count > 0 else {
-					this.printInfo(chatId: chatId, info: "There is no one new disco.")
-					return
+		bot.sendMessageAsync(chat_id: chatId,
+							 text: text,
+							 parse_mode: "markdown",
+							 replyMarkup) { [weak self] message, error in
+			if let message = message {
+				DispatchQueue.main.async {
+					self?.discoStorage.add(replyMarkup: replyMarkupKeyboard, for: message.message_id)
+					self?.discoStorage.synchronize()
 				}
-
-				for disco in discos {
-					let photoUrl = disco.photoUrlString
-					let discoText = disco.messageTruncated(by: DiscoBot.kMaxCaptionLength)
-					let replyMarkup = DiscoBot.replyMarkup(with: disco)
-
-					let channel: ChatId = testChannel ? chatId : Config.channelPrivateId
-					bot.sendPhotoSync(chat_id: channel,
-					                  photo: photoUrl,
-					                  caption: discoText,
-					                  disable_notification: true,
-					                  replyMarkup)
-					this.discoStorage.add(item: disco)
-				}
-
-				this.discoStorage.synchronize()
-			} else {
-				this.printInfo(chatId: chatId, info: "Couldn't obtain new discounts 😔")
 			}
 		}
 	}
 
-	public func clearCache(chatId: ChatId) {
-		self.discoStorage.dropAllItems()
+	public func processChoice(for query: CallbackQuery) {
+		guard let message = query.message else { return }
+		DispatchQueue.main.async {
+			if let markupKeyboard = self.discoStorage.replyMarkup(for: message.message_id) {
 
-		self.printInfo(chatId: chatId, info: "All items have been droped.")
+				let user = query.from
+				let markup = DiscoBot.replyMarkup(with: markupKeyboard)
+				let choice = query.data ?? "-1"
+				self.discoStorage.register(user: user, for: message.message_id, choice: choice)
+
+				var text = message.text ?? ""
+				let voices = self.discoStorage.voices(for: message.message_id)
+				text = text.textByAdd(voices: voices)
+
+				bot.editMessageTextAsync(chat_id: message.chat.id,
+										 message_id: message.message_id,
+										 text: text, markup)
+			}
+		}
 	}
 
 	// Echo fallback
@@ -65,79 +68,25 @@ public class DiscoBot {
 							 parse_mode: "markdown")
 	}
 
-	private func getDisco(callback: @escaping (DiscoResponse?) -> Void) {
-		let url = URL(string: "https://discounts.api.2gis.ru/2.0/projects/1/discounts?limit=20&page=1")
+	private class func inlineKeyboard(with buttons: [String]) -> InlineKeyboardMarkup {
+		var counter = 0
+		let inlineButtons: [[InlineKeyboardButton]] = buttons.map {
+			var inlineButton = InlineKeyboardButton()
+			inlineButton.text = $0
+			inlineButton.callback_data = String(counter)
+			counter = counter + 1
 
-		let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-			if let data = data {
-				do {
-					let jsonDecoder = JSONDecoder()
-					let discoResponse = try jsonDecoder.decode(DiscoResponse.self, from: data)
-					callback(discoResponse)
-				}
-				catch {
-					print("Error decode disco request: \(error)")
-					callback(nil)
-				}
-			}
+			return [inlineButton]
 		}
 
-		task.resume()
-	}
-
-	private class func inlineKeyboard(with item: DiscoItem) -> InlineKeyboardMarkup {
 		var keyboardMarkup = InlineKeyboardMarkup()
-		var showButton = InlineKeyboardButton()
-		showButton.text = "👀 Посмотреть"
-		showButton.url = item.saleUrlString
-
-		var keyboard = [showButton]
-
-//		if let filialUrlString = item.filiafUrlString {
-//			var filialButton = InlineKeyboardButton()
-//			filialButton.text = "💚 В 2ГИС"
-//			filialButton.url = filialUrlString
-//
-//			keyboard.append(filialButton)
-//		}
-
-		if let reviewUrlString = item.reviewsUrlString {
-			var reviewButton = InlineKeyboardButton()
-			reviewButton.text = "✍️ Отзывы"
-			reviewButton.url = reviewUrlString
-
-			keyboard.append(reviewButton)
-		}
-
-		keyboardMarkup.inline_keyboard = [keyboard]
-
-//		var shareKey = InlineKeyboardButton()
-//		var shareText = "❤️ Нравится"
-//		if likes > 0 {
-//			shareText = shareText + " (" + String(likes) + ")"
-//		}
-//		shareKey.text = shareText
-//		shareKey.callback_data = "like"
-
+		keyboardMarkup.inline_keyboard = inlineButtons
 
 		return keyboardMarkup
 	}
 
-	internal class func replyMarkup(with item: DiscoItem) -> [String : Any] {
-		let keyboardMarkup = DiscoBot.inlineKeyboard(with: item)
-		return ["reply_markup": keyboardMarkup] // , "disable_notification": true
-	}
-
-
-	private func discosForPost(from discos: [DiscoItem], itemsCount: Int) -> [DiscoItem] {
-		let discosToAdd = discos.filter { !self.discoStorage.contains(item: $0) }
-
-		let maxDiscos = discosToAdd.count > itemsCount
-			? itemsCount
-			: discosToAdd.count
-
-		let discosForPost = Array<DiscoItem>(discosToAdd[0..<maxDiscos])
-		return discosForPost
+	internal class func replyMarkup(with keyboard: InlineKeyboardMarkup) -> [String : Any] {
+		return ["reply_markup": keyboard]
 	}
 
 	public func isApprovedForChat(userId: Int64) -> Bool {

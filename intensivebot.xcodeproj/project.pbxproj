@@ -22,15 +22,13 @@
 
 /* Begin PBXBuildFile section */
 		309282D01FC811470081AA4B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309282CE1FC811430081AA4B /* Config.swift */; };
+		309282D21FC892F40081AA4B /* String+HaveVoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309282D11FC892F40081AA4B /* String+HaveVoices.swift */; };
 		OBJ_180 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_186 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_161 /* Package.swift */; };
 		OBJ_192 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_163 /* Package.swift */; };
 		OBJ_198 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_167 /* Package.swift */; };
 		OBJ_204 /* DiscoBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* DiscoBot.swift */; };
-		OBJ_205 /* DiscoItem+BotMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* DiscoItem+BotMessage.swift */; };
-		OBJ_206 /* DiscoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* DiscoResponse.swift */; };
-		OBJ_207 /* PostedDiscoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* PostedDiscoStorage.swift */; };
-		OBJ_208 /* String+Truncate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* String+Truncate.swift */; };
+		OBJ_207 /* PostStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* PostStorage.swift */; };
 		OBJ_209 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* main.swift */; };
 		OBJ_211 /* TelegramBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "telegram-bot-swift::TelegramBot::Product" /* TelegramBot.framework */; };
 		OBJ_212 /* ScannerUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "ScannerUtils::ScannerUtils::Product" /* ScannerUtils.framework */; };
@@ -225,7 +223,7 @@
 
 /* Begin PBXFileReference section */
 		309282CE1FC811430081AA4B /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = config/Config.swift; sourceTree = "<group>"; };
-		OBJ_10 /* DiscoItem+BotMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoItem+BotMessage.swift"; sourceTree = "<group>"; };
+		309282D11FC892F40081AA4B /* String+HaveVoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HaveVoices.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		OBJ_101 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		OBJ_102 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 		OBJ_107 /* InlineKeyboardMarkup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineKeyboardMarkup.swift; sourceTree = "<group>"; };
 		OBJ_108 /* InlineQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQuery.swift; sourceTree = "<group>"; };
 		OBJ_109 /* InlineQueryResultArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultArticle.swift; sourceTree = "<group>"; };
-		OBJ_11 /* DiscoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoResponse.swift; sourceTree = "<group>"; };
 		OBJ_110 /* InlineQueryResultAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultAudio.swift; sourceTree = "<group>"; };
 		OBJ_111 /* InlineQueryResultCachedAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultCachedAudio.swift; sourceTree = "<group>"; };
 		OBJ_112 /* InlineQueryResultCachedDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultCachedDocument.swift; sourceTree = "<group>"; };
@@ -247,7 +244,7 @@
 		OBJ_117 /* InlineQueryResultCachedVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultCachedVideo.swift; sourceTree = "<group>"; };
 		OBJ_118 /* InlineQueryResultCachedVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultCachedVoice.swift; sourceTree = "<group>"; };
 		OBJ_119 /* InlineQueryResultContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultContact.swift; sourceTree = "<group>"; };
-		OBJ_12 /* PostedDiscoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedDiscoStorage.swift; sourceTree = "<group>"; };
+		OBJ_12 /* PostStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStorage.swift; sourceTree = "<group>"; };
 		OBJ_120 /* InlineQueryResultDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultDocument.swift; sourceTree = "<group>"; };
 		OBJ_121 /* InlineQueryResultGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultGame.swift; sourceTree = "<group>"; };
 		OBJ_122 /* InlineQueryResultGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultGif.swift; sourceTree = "<group>"; };
@@ -258,7 +255,6 @@
 		OBJ_127 /* InlineQueryResultVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultVideo.swift; sourceTree = "<group>"; };
 		OBJ_128 /* InlineQueryResultVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineQueryResultVoice.swift; sourceTree = "<group>"; };
 		OBJ_129 /* InputContactMessageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputContactMessageContent.swift; sourceTree = "<group>"; };
-		OBJ_13 /* String+Truncate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Truncate.swift"; sourceTree = "<group>"; };
 		OBJ_130 /* InputFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFile.swift; sourceTree = "<group>"; };
 		OBJ_131 /* InputLocationMessageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputLocationMessageContent.swift; sourceTree = "<group>"; };
 		OBJ_132 /* InputMessageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMessageContent.swift; sourceTree = "<group>"; };
@@ -299,7 +295,6 @@
 		OBJ_167 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/va.smirnov/Projects/dgisintensivebot/.build/checkouts/SwiftyJSON.git--6955445084174387031/Package.swift"; sourceTree = "<group>"; };
 		OBJ_168 /* LclJSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LclJSONSerialization.swift; sourceTree = "<group>"; };
 		OBJ_169 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		OBJ_17 /* CoreData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CoreData; sourceTree = SOURCE_ROOT; };
 		OBJ_21 /* BotName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotName.swift; sourceTree = "<group>"; };
 		OBJ_23 /* JSON+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON+Utils.swift"; sourceTree = "<group>"; };
 		OBJ_24 /* NSRunLoop+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRunLoop+Utils.swift"; sourceTree = "<group>"; };
@@ -378,7 +373,7 @@
 		OBJ_99 /* ChosenInlineResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenInlineResult.swift; sourceTree = "<group>"; };
 		"ScannerUtils::ScannerUtils::Product" /* ScannerUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ScannerUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"intensivebot::discobot::Product" /* discobot */ = {isa = PBXFileReference; lastKnownFileType = text; path = discobot; sourceTree = BUILT_PRODUCTS_DIR; };
+		"intensivebot::discobot::Product" /* discobot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = discobot; sourceTree = BUILT_PRODUCTS_DIR; };
 		"telegram-bot-swift::TelegramBot::Product" /* TelegramBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TelegramBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -560,18 +555,16 @@
 			path = Methods;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_15 /* Tests */,
 				OBJ_16 /* config */,
-				OBJ_17 /* CoreData */,
 				OBJ_18 /* Dependencies */,
 				OBJ_170 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -612,11 +605,9 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_9 /* DiscoBot.swift */,
-				OBJ_10 /* DiscoItem+BotMessage.swift */,
-				OBJ_11 /* DiscoResponse.swift */,
-				OBJ_12 /* PostedDiscoStorage.swift */,
-				OBJ_13 /* String+Truncate.swift */,
+				OBJ_12 /* PostStorage.swift */,
 				OBJ_14 /* main.swift */,
+				309282D11FC892F40081AA4B /* String+HaveVoices.swift */,
 			);
 			name = discobot;
 			path = Sources/discobot;
@@ -775,9 +766,9 @@
 			productName = intensivebotPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
-		"intensivebot::discobot" /* discobot */ = {
+		"intensivebot::discobot" /* intensivebot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_200 /* Build configuration list for PBXNativeTarget "discobot" */;
+			buildConfigurationList = OBJ_200 /* Build configuration list for PBXNativeTarget "intensivebot" */;
 			buildPhases = (
 				OBJ_203 /* Sources */,
 				OBJ_210 /* Frameworks */,
@@ -789,7 +780,7 @@
 				OBJ_216 /* PBXTargetDependency */,
 				OBJ_218 /* PBXTargetDependency */,
 			);
-			name = discobot;
+			name = intensivebot;
 			productName = discobot;
 			productReference = "intensivebot::discobot::Product" /* discobot */;
 			productType = "com.apple.product-type.tool";
@@ -841,7 +832,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_170 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -850,7 +841,7 @@
 				"telegram-bot-swift::SwiftPMPackageDescription" /* telegram-bot-swiftPackageDescription */,
 				"ScannerUtils::SwiftPMPackageDescription" /* ScannerUtilsPackageDescription */,
 				"SwiftyJSON::SwiftPMPackageDescription" /* SwiftyJSONPackageDescription */,
-				"intensivebot::discobot" /* discobot */,
+				"intensivebot::discobot" /* intensivebot */,
 				"telegram-bot-swift::TelegramBot" /* TelegramBot */,
 				"ScannerUtils::ScannerUtils" /* ScannerUtils */,
 				"SwiftyJSON::SwiftyJSON" /* SwiftyJSON */,
@@ -897,11 +888,9 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_204 /* DiscoBot.swift in Sources */,
-				OBJ_205 /* DiscoItem+BotMessage.swift in Sources */,
-				OBJ_206 /* DiscoResponse.swift in Sources */,
 				309282D01FC811470081AA4B /* Config.swift in Sources */,
-				OBJ_207 /* PostedDiscoStorage.swift in Sources */,
-				OBJ_208 /* String+Truncate.swift in Sources */,
+				OBJ_207 /* PostStorage.swift in Sources */,
+				309282D21FC892F40081AA4B /* String+HaveVoices.swift in Sources */,
 				OBJ_209 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1458,7 +1447,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_200 /* Build configuration list for PBXNativeTarget "discobot" */ = {
+		OBJ_200 /* Build configuration list for PBXNativeTarget "intensivebot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_201 /* Debug */,
