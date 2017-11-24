@@ -30,9 +30,15 @@ public class DiscoBot {
 					let postedText = "*\(userName) запостил опрос:*\n" +
 						"Title: \(title)\n" +
 						"id: \(message.message_id)"
+
 					bot.sendMessageAsync(chat_id: Config.vados,
 										 text: postedText,
 										 parse_mode: "markdown")
+					if chatId.json.intValue != Config.vados {
+						bot.sendMessageAsync(chat_id: chatId,
+											 text: postedText,
+											 parse_mode: "markdown")
+					}
 				}
 			}
 		}
