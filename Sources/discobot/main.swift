@@ -13,18 +13,20 @@ router["post", .slashRequired] = { context in
 
 		guard let user = message.from, discoBot.isApprovedForChat(userId: user.id) else { return true }
 		let testCommand = p.first ?? ""
-		let isTest = testCommand == "test"
+		let isTest = !(testCommand == "prod")
 
 		if let messageText = message.text {
 			let textLines = messageText.components(separatedBy: "\n")
-			guard textLines.count > 3 else { return true }
+			guard textLines.count > 3 else {
+				bot.sendMessageAsync(chat_id: message.chat.id,
+									 text: "*Ошибка:* слишком мало строчек. Надо минимум 3 (Тайтл, Дескрипшен и хотя бы одна кнопка на выбор.)",
+									 parse_mode: "markdown")
+				return true
+			}
+
 			let title = textLines[1]
 			let description = textLines[2]
-
 			let buttons = Array<String>(textLines[3..<textLines.count])
-			print("Title: " + title)
-			print("Description: " + description)
-			print("Buttons: \(buttons)")
 
 			discoBot.postForm(chatId: message.chat.id,
 							  title: title,
@@ -44,7 +46,7 @@ router[["help", "start"], .slashRequired] = { context in
 		let firstName = message.from?.first_name ?? "Неизвестный"
 		let info = "Привет, " + firstName + "\n Используй команды:\n" +
 		"*/clear* — чтобы дропнуть все записи из кеша\n" +
-		"*/post* — отправить текст с кнопками в канальчик\n" +
+		"*/post prod* — отправить текст с кнопками в канальчик\n" +
 		"*/results* — посмотреть результаты"
 		bot.sendMessageAsync(chat_id: message.chat.id,
 		                     text: info,

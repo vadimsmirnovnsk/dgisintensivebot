@@ -14,7 +14,8 @@ public class DiscoBot {
 		let replyMarkupKeyboard = DiscoBot.inlineKeyboard(with: buttons)
 		let replyMarkup = DiscoBot.replyMarkup(with: replyMarkupKeyboard)
 
-		bot.sendMessageAsync(chat_id: chatId,
+		let prodChatId = test ? chatId : Config.channelPrivateId
+		bot.sendMessageAsync(chat_id: prodChatId,
 							 text: text,
 							 parse_mode: "markdown",
 							 replyMarkup) { [weak self] message, error in
@@ -25,7 +26,8 @@ public class DiscoBot {
 				}
 
 				if (!test) {
-					let postedText = "*Запостили опрос:*\n" +
+					let userName = message.from?.username ?? "Unknown"
+					let postedText = "*\(userName) запостил опрос:*\n" +
 						"Title: \(title)\n" +
 						"id: \(message.message_id)"
 					bot.sendMessageAsync(chat_id: Config.vados,
