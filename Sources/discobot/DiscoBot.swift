@@ -21,11 +21,13 @@ public class DiscoBot {
 							 replyMarkup) { [weak self] message, error in
 			if let message = message {
 				DispatchQueue.main.async {
-					self?.discoStorage.add(replyMarkup: replyMarkupKeyboard, buttons: buttons, for: message)
-					self?.discoStorage.synchronize()
+//					if !test {
+						self?.discoStorage.add(replyMarkup: replyMarkupKeyboard, buttons: buttons, for: message)
+						self?.discoStorage.synchronize()
+//					}
 				}
 
-				if (!test) {
+				if !test {
 					let userName = message.from?.username ?? "Unknown"
 					let postedText = "*\(userName) запостил опрос:*\n" +
 						"Title: \(title)\n" +
@@ -85,7 +87,8 @@ public class DiscoBot {
 
 				bot.editMessageTextAsync(chat_id: message.chat.id,
 										 message_id: message.message_id,
-										 text: text, markup)
+										 text: text,
+										 markup)
 			}
 		}
 	}
