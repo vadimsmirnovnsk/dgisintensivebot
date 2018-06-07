@@ -26,6 +26,7 @@ def create_parser():
 	return parser
 
 def install_packages():
+	subprocess.check_call(["swift", "package", "generate-xcodeproj"]) 
 	subprocess.check_call(["swift", "build"]) 
 
 if __name__ == "__main__":
