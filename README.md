@@ -3,7 +3,7 @@
 2GIS Discounts Bot Prototype.
 
 Чтобы заработал бот, необходимо добавить файл конфига:
-./config/Config.swift
+./Source/discobot/config/Config.swift
 
 public class Config {
     static let botToken = токен бота
