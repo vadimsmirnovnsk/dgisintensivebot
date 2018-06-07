@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "intensivebot::discobot"
-               BuildableName = "discobot"
-               BlueprintName = "intensivebot"
+               BlueprintIdentifier = "telegram-bot-swift::TelegramBot"
+               BuildableName = "TelegramBot.framework"
+               BlueprintName = "TelegramBot"
                ReferencedContainer = "container:intensivebot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "telegram-bot-swift::TelegramBot"
-               BuildableName = "TelegramBot.framework"
-               BlueprintName = "TelegramBot"
+               BlueprintIdentifier = "intensivebot::intensivebot"
+               BuildableName = "intensivebot"
+               BlueprintName = "intensivebot"
                ReferencedContainer = "container:intensivebot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -68,7 +68,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -79,7 +78,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -89,9 +87,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "intensivebot::discobot"
-            BuildableName = "discobot"
-            BlueprintName = "intensivebot"
+            BlueprintIdentifier = "telegram-bot-swift::TelegramBot"
+            BuildableName = "TelegramBot.framework"
+            BlueprintName = "TelegramBot"
             ReferencedContainer = "container:intensivebot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -89,6 +89,7 @@ public class DiscoBot {
 										 message_id: message.message_id,
 										 text: text,
 										 markup)
+				bot.answerCallbackQueryAsync(callback_query_id: query.id)
 			}
 		}
 	}
